@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react'
 import { FilmReel } from './FilmReel'
 import styles from './FilmStrip.module.css'
 
-/** The Idea frame: a warm glow on the bulb in the image, and two small marks of thought drifting beside it. */
+/** The Idea frame: a warm glow on the rising sun in the image, and two small marks of thought drifting beside it. */
 function IdeaLayer() {
   return (
     <>
@@ -72,8 +72,8 @@ const STAGES = [
   {
     label: 'Idea',
     tagline: 'Where it begins',
-    photo: '/images/services/01 · Idea.png',
-    alt: 'Hand-drawn question marks and a lit bulb above a rising sun and desert ridges',
+    photo: '/images/services/01 · Idea (2).png',
+    alt: 'A large sun rising behind layered red desert ridges',
     Layer: IdeaLayer,
   },
   {
@@ -95,7 +95,7 @@ const STAGES = [
   {
     label: 'Cut',
     tagline: 'Perfecting the story',
-    photo: '/images/services/04 · Cut.png',
+    photo: '/images/services/04 · Cut (2).png',
     alt: 'An editor in headphones working on a film timeline across two monitors',
     aboveTimeline: true,
     Layer: CutLayer,

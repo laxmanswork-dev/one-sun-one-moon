@@ -159,9 +159,9 @@
 }
 .bulbGlow {
   position: absolute;
-  top: 29%;
-  left: 61.5%;
-  width: 34cqw;
+  top: 72%;
+  left: 50%;
+  width: 60cqw;
   aspect-ratio: 1;
   translate: -50% -50%;
   opacity: 0.5;
