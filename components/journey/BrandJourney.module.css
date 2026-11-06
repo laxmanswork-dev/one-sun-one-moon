@@ -1,0 +1,386 @@
+.journey {
+  position: relative;
+  background: #1c0d0b;
+  color: var(--cream);
+}
+
+/* ---- Journey bar: chapter progress + exit; pinned over the scenes ---------- */
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 52px;
+  /* Overlays the first scene instead of pushing it down. */
+  margin-bottom: -52px;
+  padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right));
+  background: rgba(18, 10, 8, 0.86);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line-on-dark);
+}
+.steps {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 1.6vw, 18px);
+  padding: 0;
+  list-style: none;
+}
+.steps a,
+.locked {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding-inline: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(244, 235, 221, 0.78);
+  text-decoration: none;
+}
+.steps a:hover {
+  color: var(--gold);
+}
+.locked {
+  color: rgba(244, 235, 221, 0.38);
+}
+.steps [aria-current] > a {
+  color: var(--gold);
+}
+.stepNumber {
+  font-family: var(--font-serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+}
+.exit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid rgba(244, 235, 221, 0.32);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.exit span[aria-hidden] {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.exit:hover {
+  background: var(--cream);
+  color: var(--espresso);
+}
+@media (max-width: 639px) {
+  .stepName {
+    display: none;
+  }
+}
+
+/* ---- Chapter III gate: a quiet beat before the game ------------------------- */
+.gate {
+  position: relative;
+  display: grid;
+  align-items: center;
+  min-height: 86svh;
+  padding-block: clamp(80px, 12vh, 140px);
+  background:
+    radial-gradient(60% 40% at 50% 0%, rgba(160, 176, 220, 0.12), transparent 70%),
+    linear-gradient(180deg, #090c15 0%, #07090f 100%);
+  text-align: center;
+}
+.gateInner {
+  display: grid;
+  justify-items: center;
+  gap: clamp(18px, 3vh, 32px);
+}
+.journey[data-cinematic] .gateInner {
+  transition:
+    opacity 1s ease-out,
+    translate 1.2s var(--ease-out);
+}
+.journey[data-cinematic] .gateInner:not([data-shown]) {
+  opacity: 0;
+  translate: 0 24px;
+}
+.kicker {
+  font-family: var(--font-serif);
+  font-size: 0.74rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.gateTitle {
+  max-width: 16ch;
+  font-size: clamp(2.2rem, 1.2rem + 4vw, 5.2rem);
+  color: var(--cream);
+}
+.gateAccent {
+  display: block;
+  margin-top: 0.12em;
+  color: var(--gold);
+}
+.gateActions {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+}
+.gateNote {
+  font-size: 0.82rem;
+  color: rgba(244, 235, 221, 0.6);
+}
+
+/* The secret door: an elongated eclipse in the hero CTA's sun foil, with a faint second rim sitting
+   slightly off-centre — the corona edge — that aligns when the door is approached. On hover a single
+   point of light travels once around the rim. */
+@property --sweep {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+.enter {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 64px;
+  padding: 0.6em 2.8em;
+  border: 1.5px solid #ffd45c;
+  /* Stretched elliptical ends rather than a pill's semicircles. */
+  border-radius: 30% / 50%;
+  /* The same sun foil as the hero's “DON'T CLICK THIS”: orange edges, bright sun-yellow centre. */
+  background: linear-gradient(
+    135deg,
+    #e2551a 0%,
+    #f27d22 18%,
+    #ffb52e 36%,
+    #ffd84a 50%,
+    #ffb52e 64%,
+    #f27d22 82%,
+    #e2551a 100%
+  );
+  color: var(--espresso);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(255, 230, 150, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 245, 200, 0.7),
+    inset 0 -2px 6px rgba(150, 50, 10, 0.35),
+    0 0 20px rgba(242, 125, 34, 0.45),
+    0 6px 20px rgba(38, 23, 20, 0.3);
+  transition:
+    border-color 0.45s var(--ease-out),
+    filter 0.3s var(--ease-out),
+    transform 0.18s var(--ease-out);
+}
+.enter::before,
+.enter::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.enter::before {
+  inset: -6px;
+  z-index: -1;
+  border: 1px solid rgba(255, 212, 92, 0.3);
+  translate: -4px -2px;
+  transition:
+    translate 0.6s var(--ease-out),
+    border-color 0.6s var(--ease-out);
+}
+/* Light along the rim: a conic highlight masked down to the 1px border. */
+.enter::after {
+  inset: -1.5px;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--sweep),
+    transparent 0deg,
+    transparent 280deg,
+    rgba(255, 250, 230, 0.55) 320deg,
+    #ffffff 348deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+.enter:hover:not(:disabled),
+.enter:focus-visible {
+  border-color: #ffe08a;
+  filter: brightness(1.08) saturate(1.1);
+}
+.enter:hover:not(:disabled)::before,
+.enter:focus-visible::before {
+  translate: 0 0;
+  border-color: rgba(255, 212, 92, 0.5);
+}
+.enter:hover:not(:disabled)::after {
+  opacity: 1;
+}
+.enter:focus-visible {
+  outline: 1.5px solid var(--gold);
+  outline-offset: 10px;
+  /* Outranks the site-wide focus rule's 2px radius, so the ring keeps the eclipse shape. */
+  border-radius: 30% / 50%;
+}
+.enter:active:not(:disabled) {
+  transform: translateY(1px) scale(0.99);
+  filter: brightness(0.95);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 245, 200, 0.5),
+    inset 0 -1px 4px rgba(150, 50, 10, 0.45),
+    0 0 14px rgba(242, 125, 34, 0.35);
+}
+.enter:active:not(:disabled)::before {
+  border-color: rgba(255, 212, 92, 0.6);
+}
+.enter:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.enterArrow {
+  display: inline-block;
+  font-size: 1.1em;
+  letter-spacing: 0;
+  transition: transform 0.45s var(--ease-out);
+}
+.enter:hover:not(:disabled) .enterArrow,
+.enter:focus-visible .enterArrow {
+  transform: translateX(4px);
+}
+.replay {
+  min-height: 48px;
+  padding: 0.6em 1.4em;
+  border: 1px solid var(--line-on-dark);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-weight: 600;
+}
+.replay:hover {
+  background: rgba(244, 235, 221, 0.1);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .enter:hover:not(:disabled)::after {
+    animation: sweep 1.3s var(--ease-in-out) both;
+  }
+}
+/* One pass around the rim, then the light fades and the brightened border remains. */
+@keyframes sweep {
+  from {
+    --sweep: 0deg;
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  to {
+    --sweep: 360deg;
+    opacity: 0;
+  }
+}
+/* Reduced motion: the rim simply brightens; nothing travels or shifts. */
+@media (prefers-reduced-motion: reduce) {
+  .enter,
+  .enter::before,
+  .enterArrow {
+    transition: none;
+  }
+  .enter::before {
+    translate: 0 0;
+  }
+  .enter:hover:not(:disabled)::after {
+    opacity: 0;
+  }
+  .enter:hover:not(:disabled) .enterArrow,
+  .enter:focus-visible .enterArrow,
+  .enter:active:not(:disabled) {
+    transform: none;
+  }
+}
+@media (max-width: 479px) {
+  .enter {
+    gap: 10px;
+    padding-inline: 1.9em;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+  }
+}
+@media (max-width: 359px) {
+  .enter {
+    padding-inline: 1.5em;
+    letter-spacing: 0.15em;
+  }
+}
+
+/* ---- Chapter IV: dawn breaks into the enquiry -------------------------------- */
+.enquiry {
+  position: relative;
+  padding-bottom: var(--section);
+  background: var(--cream);
+  color: var(--ink);
+}
+.enquiry :focus-visible {
+  outline-color: var(--blood);
+}
+.dawn {
+  height: clamp(160px, 30svh, 320px);
+  background: linear-gradient(
+    180deg,
+    #07090f 0%,
+    #1d1626 22%,
+    #4a2122 44%,
+    #a8391f 64%,
+    #e48f2c 80%,
+    #f1c98e 92%,
+    var(--cream) 100%
+  );
+}
+.enquiryInner {
+  display: grid;
+  gap: clamp(18px, 2.6vw, 28px);
+  margin-top: clamp(16px, 3vw, 32px);
+}
+.enquiryKicker {
+  font-family: var(--font-serif);
+  font-size: 0.74rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.enquiryTitle {
+  max-width: 14ch;
+  font-size: clamp(2.5rem, 1.3rem + 4.6vw, 6rem);
+  color: var(--espresso);
+}
+.enquiryTitle:focus {
+  outline: none;
+}
+.enquiryLede {
+  max-width: 38em;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--ink-muted);
+}

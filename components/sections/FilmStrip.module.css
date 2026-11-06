@@ -1,0 +1,641 @@
+/*
+ * The default is a still, swipeable strip: phones, no-motion visitors and browsers without scripts all start from it.
+ * The moving reel is layered on top for larger screens where motion is welcome.
+ */
+.reel {
+  --film: #352018; /* Deep Brown: the film base */
+  margin-top: clamp(32px, 4vw, 56px);
+}
+.strip {
+  --frame: min(78vw, 420px);
+  position: relative;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  background: var(--film);
+  border-block: 1px solid var(--gold);
+  box-shadow: 0 26px 44px -30px rgba(53, 32, 24, 0.7);
+}
+.strip::-webkit-scrollbar {
+  display: none;
+}
+.track {
+  display: flex;
+  width: max-content;
+}
+.copy {
+  display: flex;
+  flex: none;
+  padding: 0;
+  list-style: none;
+}
+.repeat {
+  display: none;
+}
+.frame {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  width: var(--frame);
+  padding-inline: 3px;
+  scroll-snap-align: start;
+}
+/* Every frame carries exactly twelve holes, so the row runs unbroken from one frame into the next. */
+.perforations {
+  height: calc(var(--frame) * 0.046);
+  margin-inline: -3px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 16' preserveAspectRatio='none'%3E%3Crect x='7' y='2.5' width='16' height='11' rx='2.5' fill='%23F4EBDD'/%3E%3C/svg%3E")
+    0 0 / calc(100% / 12) 100% repeat-x;
+}
+.picture {
+  container-type: inline-size;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 300 / 170;
+  outline: 1px solid var(--gold);
+  background: var(--film);
+}
+/* A soft darkening at the edges, as a projected frame has. */
+.picture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: inset 0 0 7cqw rgba(53, 32, 24, 0.32);
+}
+/* The chapter title: a shadow rising from the foot of the frame, deep at the base and warming to Blood Orange as it fades. */
+.title {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  padding: 15cqw 4cqw 3.6cqw;
+  background: linear-gradient(
+    to top,
+    rgba(36, 18, 12, 0.94),
+    rgba(53, 28, 20, 0.9) 50%,
+    rgba(142, 36, 27, 0.36) 74%,
+    transparent
+  );
+  color: #f4ebdd; /* Desert Cream */
+  pointer-events: none;
+  text-align: center;
+}
+/* The Cut frame's timeline stays uncovered, with the title resting just above it. */
+.aboveTimeline {
+  padding-bottom: 11cqw;
+}
+.titleText {
+  display: flex;
+  flex-direction: column;
+  gap: 1cqw;
+  text-shadow: 0 1px 8px rgba(36, 18, 12, 0.75);
+}
+.heading {
+  font-family: var(--font-display);
+  font-size: clamp(19px, 7.8cqw, 38px);
+  font-variation-settings: 'wdth' 62;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  line-height: 1.1;
+  margin-right: -0.13em; /* Balances the trailing letter-space, so the line sits truly centred. */
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.number {
+  font-size: 0.6em;
+  letter-spacing: 0.16em;
+  vertical-align: 0.14em;
+}
+.tagline {
+  font-family: var(--font-serif);
+  font-size: max(10.5px, 2.9cqw);
+  letter-spacing: 0.22em;
+  line-height: 1.3;
+  opacity: 0.92;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.gate,
+.controls {
+  display: none;
+}
+.toggle {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--blood);
+  font-family: var(--font-serif);
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+}
+
+/* ---- Each stage's own layer. Without motion, these rest as still details. ---- */
+.layers,
+.layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.layer {
+  fill: none;
+  stroke: var(--blood);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+}
+.layer circle {
+  fill: var(--blood);
+  stroke: none;
+}
+.bulbGlow {
+  position: absolute;
+  top: 29%;
+  left: 61.5%;
+  width: 34cqw;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  opacity: 0.5;
+  background: radial-gradient(closest-side, rgba(231, 165, 46, 0.55), transparent);
+}
+.slip {
+  position: absolute;
+  top: 24cqw;
+  right: 5cqw;
+  padding: 1.4cqw 2.4cqw;
+  border-left: 0.6cqw solid var(--sienna);
+  background: var(--cream);
+  color: var(--film);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 3.5cqw;
+  font-weight: 700;
+  line-height: 1.3;
+  white-space: nowrap;
+  transform: rotate(-1.4deg);
+  box-shadow: 0 1cqw 2.4cqw -1cqw rgba(53, 32, 24, 0.7);
+}
+.typed {
+  display: block;
+  width: 29ch;
+  overflow: hidden;
+}
+.viewfinder {
+  stroke: var(--cream);
+  stroke-width: 1.1;
+}
+.rec {
+  position: absolute;
+  top: 7cqw;
+  right: 8cqw;
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+  padding: 0.5cqw 1.6cqw;
+  background: var(--cream);
+  color: var(--blood);
+  font-size: 3cqw;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+.recDot {
+  width: 1.8cqw;
+  height: 1.8cqw;
+  border-radius: 50%;
+  background: var(--blood);
+}
+.flicker,
+.flash {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.flicker {
+  background: radial-gradient(90% 90% at 50% 45%, rgba(231, 165, 46, 0.42), transparent);
+}
+.flash {
+  background: var(--cream);
+}
+.timeline {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 8.5cqw;
+  overflow: hidden;
+  z-index: 4;
+  border-top: 1px solid var(--gold);
+  background: var(--film);
+}
+/* Two rows of clips, repeating on a 25% tile, so sliding half the element's width is seamless. */
+.clips {
+  position: absolute;
+  top: 1.4cqw;
+  bottom: 1.4cqw;
+  opacity: 0.8;
+  left: 0;
+  width: 200%;
+  background:
+    linear-gradient(
+        90deg,
+        var(--gold) 0 21%,
+        transparent 21% 22%,
+        var(--sienna) 22% 54%,
+        transparent 54% 55%,
+        var(--cream) 55% 68%,
+        transparent 68% 69%,
+        var(--gold) 69% 99%,
+        transparent 99%
+      )
+      0 0 / 25% 46% repeat-x,
+    linear-gradient(
+        90deg,
+        var(--sienna) 0 38%,
+        transparent 38% 39%,
+        var(--gold) 39% 62%,
+        transparent 62% 63%,
+        var(--sienna) 63% 99%,
+        transparent 99%
+      )
+      0 100% / 25% 46% repeat-x;
+}
+.playhead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: var(--cream);
+}
+/* A cone of light fanning from the lamp in the image, soft at its edges and fading out as it reaches the screen. */
+.beam {
+  position: absolute;
+  inset: 0;
+  opacity: 0.8;
+  background: conic-gradient(
+    from 83deg at 7.7% 39.5%,
+    transparent 0deg,
+    rgba(244, 235, 221, 0.55) 2.5deg,
+    rgba(244, 235, 221, 0.55) 15deg,
+    transparent 19deg
+  );
+  mask-image: linear-gradient(90deg, black 10%, rgba(0, 0, 0, 0.8) 72%, transparent 80%);
+  transform-origin: 7.7% 39.5%;
+}
+.screen {
+  position: absolute;
+  top: 31.6%;
+  left: 80%;
+  width: 20%;
+  height: 30.4%;
+  opacity: 0;
+  background: var(--cream);
+}
+
+/* ---- The moving reel ---- */
+@media (prefers-reduced-motion: no-preference) {
+  @media (min-width: 720px) {
+    .strip {
+      --frame: max(280px, 28vw); /* Five frames are always wider than the screen, so the loop never shows a gap. */
+      overflow: hidden;
+    }
+    .repeat {
+      display: flex;
+    }
+    .track {
+      animation: reel-run 17.5s linear infinite reverse;
+    }
+    /* Frames brighten as they pass through the middle of the strip, like film crossing a projector's gate. */
+    .gate {
+      display: block;
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(53, 32, 24, 0.5), transparent 20%, transparent 80%, rgba(53, 32, 24, 0.5)),
+        radial-gradient(34% 90% at 50% 50%, rgba(231, 165, 46, 0.1), transparent);
+      animation: reel-gate 3.5s linear infinite;
+    }
+    .controls {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 6px;
+    }
+    .picture {
+      transition:
+        transform 0.5s var(--ease-out),
+        box-shadow 0.5s var(--ease-out);
+    }
+    .titleText {
+      transition: transform 0.5s var(--ease-out);
+    }
+    .tagline {
+      transition: opacity 0.5s var(--ease-out);
+    }
+    /* The ambient life of each stage. */
+    .bulbGlow {
+      animation: idea-glow 5s ease-in-out infinite;
+    }
+    .floatOne,
+    .floatTwo {
+      animation: idea-float 7s ease-in-out infinite alternate;
+    }
+    .floatTwo {
+      animation-delay: -3.5s;
+    }
+    .typed {
+      border-right: 0.3cqw solid transparent;
+      animation:
+        script-type 11s steps(29, end) infinite,
+        script-cursor 0.9s step-end infinite;
+    }
+    .pushIn {
+      animation: shoot-push 16s ease-in-out infinite alternate;
+    }
+    .recDot {
+      animation: shoot-rec 1.6s step-end infinite;
+    }
+    .flicker {
+      animation: lamp-flicker 6s linear infinite;
+    }
+    .flash {
+      animation: shoot-flash 13s linear infinite;
+    }
+    .clips {
+      animation: cut-run 16s linear infinite;
+    }
+    .playhead {
+      animation: cut-splice 4s linear infinite;
+    }
+    .beam {
+      animation:
+        release-sweep 12s ease-in-out infinite alternate,
+        release-flicker 5s linear infinite;
+    }
+    .screen {
+      animation: screen-flicker 4s linear infinite;
+    }
+  }
+  @media (min-width: 720px) and (hover: hover) {
+    .strip:hover .track {
+      animation-play-state: paused;
+    }
+    .frame:hover {
+      z-index: 2;
+    }
+    .frame:hover .picture {
+      transform: scale(1.035);
+      box-shadow: 0 10px 26px -10px rgba(231, 165, 46, 0.55);
+    }
+    .frame:hover .titleText {
+      transform: translateY(-1.4cqw);
+    }
+    .frame:hover .tagline {
+      opacity: 1;
+    }
+  }
+  /* Phones keep only the two details that say the most, and leave the rest still. */
+  @media (max-width: 719px) {
+    .bulbGlow {
+      animation: idea-glow 5s ease-in-out infinite;
+    }
+    .recDot {
+      animation: shoot-rec 1.6s step-end infinite;
+    }
+  }
+
+  /* Stopped by the visitor, or simply off screen. */
+  .reel[data-paused] *,
+  .reel[data-offscreen] * {
+    animation-play-state: paused !important;
+  }
+
+  /* The entrance: the intro first, then the strip slides in and its frames open one after another. */
+  @media (scripting: enabled) {
+    [data-inview-root]:not([data-inview]) .reel {
+      animation: reel-hold 10s linear;
+    }
+  }
+  [data-inview='ready'] .reel {
+    opacity: 0;
+  }
+  [data-inview='ready'] .picture {
+    clip-path: inset(0 100% 0 0);
+  }
+  [data-inview='in'] .reel {
+    animation: reel-enter 1.5s var(--ease-out) 0.35s backwards;
+  }
+  [data-inview='in'] .picture {
+    animation: reel-open 0.9s var(--ease-in-out) var(--d, 0s) backwards;
+  }
+  [data-inview='in'] .titleText {
+    animation: title-rise 0.9s var(--ease-out) calc(var(--d, 0s) + 0.45s) backwards;
+  }
+}
+
+/* Without motion, a large screen shows all five frames at once, with nothing to scroll. */
+@media (prefers-reduced-motion: reduce) and (min-width: 1024px) {
+  .strip {
+    --frame: 20vw;
+    overflow: visible;
+  }
+  .track,
+  .copy:not(.repeat) {
+    width: 100%;
+  }
+  .frame {
+    width: 20%;
+  }
+  .perforations {
+    height: 0.9vw;
+  }
+}
+
+@keyframes title-rise {
+  from {
+    opacity: 0;
+    transform: translateY(3cqw);
+  }
+}
+@keyframes reel-run {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes reel-hold {
+  from,
+  to {
+    opacity: 0;
+  }
+}
+@keyframes reel-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-12vw);
+  }
+}
+@keyframes reel-open {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes reel-gate {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  41% {
+    opacity: 1;
+  }
+  43% {
+    opacity: 0.86;
+  }
+  46% {
+    opacity: 1;
+  }
+}
+@keyframes idea-glow {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+@keyframes idea-float {
+  from {
+    transform: translateY(2.5px) rotate(-3deg);
+  }
+  to {
+    transform: translateY(-3.5px) rotate(4deg);
+  }
+}
+/* Types the line, holds it long enough to read, then clears it for the next take. */
+@keyframes script-type {
+  0% {
+    width: 0;
+  }
+  36%,
+  92% {
+    width: 29ch;
+  }
+  100% {
+    width: 0;
+  }
+}
+@keyframes script-cursor {
+  50% {
+    border-right-color: var(--film);
+  }
+}
+@keyframes shoot-push {
+  to {
+    transform: scale(1.045);
+  }
+}
+@keyframes shoot-rec {
+  50% {
+    opacity: 0.15;
+  }
+}
+@keyframes lamp-flicker {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  22% {
+    opacity: 0.38;
+  }
+  24% {
+    opacity: 0.2;
+  }
+  58% {
+    opacity: 0.34;
+  }
+  61% {
+    opacity: 0.22;
+  }
+}
+/* One soft flash in each long cycle, never a strobe. */
+@keyframes shoot-flash {
+  0%,
+  82%,
+  86%,
+  100% {
+    opacity: 0;
+  }
+  83% {
+    opacity: 0.2;
+  }
+}
+@keyframes cut-run {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes cut-splice {
+  0%,
+  84%,
+  94%,
+  100% {
+    background: var(--cream);
+    transform: scaleX(1);
+  }
+  88% {
+    background: var(--gold);
+    transform: scaleX(2);
+  }
+}
+@keyframes release-sweep {
+  from {
+    transform: rotate(-1.1deg);
+  }
+  to {
+    transform: rotate(1.1deg);
+  }
+}
+@keyframes release-flicker {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  30% {
+    opacity: 0.68;
+  }
+  33% {
+    opacity: 0.82;
+  }
+  70% {
+    opacity: 0.72;
+  }
+}
+@keyframes screen-flicker {
+  0%,
+  100% {
+    opacity: 0.03;
+  }
+  24% {
+    opacity: 0.12;
+  }
+  27% {
+    opacity: 0.04;
+  }
+  63% {
+    opacity: 0.1;
+  }
+}

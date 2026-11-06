@@ -1,0 +1,36 @@
+.scene {
+  width: 100%;
+  height: 100%;
+}
+.sun {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* A single, slow sunrise on load — then still. */
+  .sun {
+    animation: sunrise 2.4s var(--ease-out) 0.2s both;
+  }
+  .mesaLeft {
+    animation: drift-left 2.2s var(--ease-out) both;
+  }
+  .mesaRight {
+    animation: drift-right 2.2s var(--ease-out) both;
+  }
+}
+@keyframes sunrise {
+  from {
+    transform: translateY(90px);
+    opacity: 0.2;
+  }
+}
+@keyframes drift-left {
+  from {
+    transform: translateX(-24px);
+  }
+}
+@keyframes drift-right {
+  from {
+    transform: translateX(24px);
+  }
+}

@@ -1,0 +1,88 @@
+.band {
+  /* Taller than a plain ticker: the panel's parallel lines need this height to stay distinct. */
+  --h: clamp(76px, 62px + 2.9vw, 108px);
+  --gap: clamp(18px, 2.2vw, 36px);
+  position: relative;
+  z-index: 1;
+  height: var(--h);
+  overflow: hidden;
+  background: var(--blood);
+  color: var(--cream);
+}
+/* Fixed double rails along both edges; the words and panels travel between them. */
+.band::before,
+.band::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  height: 5px;
+  border-block: 1px solid var(--gold);
+}
+.band::before {
+  top: 3px;
+}
+.band::after {
+  bottom: 3px;
+}
+.track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+}
+.list {
+  display: flex;
+  flex: none;
+  list-style: none;
+  padding: 0;
+}
+/* Spacing is padding and margin, not flex gap, so the two copies meet at the same interval as every other item. */
+.item {
+  display: flex;
+  align-items: center;
+}
+.phrase {
+  padding-inline: var(--gap);
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 62;
+  font-weight: 900;
+  font-size: clamp(1.4rem, 1.05rem + 1.3vw, 2.3rem);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+/* Clears the rails above and below, keeping the artwork inside the ribbon. */
+.panel {
+  flex: none;
+  height: calc(var(--h) - 22px);
+  width: auto;
+  aspect-ratio: 1912 / 388;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 0.7px;
+}
+.panel * {
+  vector-effect: non-scaling-stroke;
+}
+.secondary {
+  stroke: var(--sienna);
+}
+@media (max-width: 639px) {
+  .panel {
+    stroke-width: 0.5px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .track {
+    animation: ribbon 75s linear infinite reverse;
+    will-change: transform;
+  }
+  .band:hover .track {
+    animation-play-state: paused;
+  }
+}
+@keyframes ribbon {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}

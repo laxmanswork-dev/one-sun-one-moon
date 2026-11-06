@@ -1,0 +1,228 @@
+.figure {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+/* The reference artwork's proportions; DecoFrame draws its ornament on the same 352 x 550 canvas. */
+.frame {
+  position: relative;
+  aspect-ratio: 352 / 550;
+}
+/* The photograph and its border together: the single thing that turns in space. */
+.object {
+  position: absolute;
+  inset: 0;
+}
+/* The artwork's opening: a 2:3 window at x 32-320, y 59-491. */
+.image {
+  position: absolute;
+  top: calc(59 / 550 * 100%);
+  left: calc(32 / 352 * 100%);
+  width: calc(288 / 352 * 100%);
+  height: calc(432 / 550 * 100%);
+  overflow: hidden;
+}
+.photo {
+  object-fit: cover;
+}
+/* Empty state: a quiet golden-hour wash. */
+.placeholder {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(90% 60% at 50% 0%, rgba(231, 165, 46, 0.34), transparent 70%),
+    radial-gradient(110% 60% at 50% 100%, rgba(185, 74, 36, 0.26), transparent 72%), var(--sand);
+}
+@property --beam-x {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --beam-y {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --beam-r {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+/*
+ * The founder introduction: one 3.6s timeline, started by SunriseReveal when the section comes into view. The photograph
+ * and its border turn as one object, while two layers over the untouched photograph carry the light. Both founders
+ * share the same keyframes and mirror only the angle. When it ends the layers are hidden and the transform is gone,
+ * and with reduced motion or no script none of this applies, so the photographs simply show as they are.
+ */
+.darkness,
+.light {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .figure:nth-child(1) {
+    --turn: -65deg;
+  }
+  .figure:nth-child(2) {
+    --turn: 65deg;
+  }
+  .frame {
+    perspective: 1400px;
+  }
+  .object {
+    transform-style: preserve-3d;
+  }
+  [data-sunrise-state='ready'] .object {
+    transform: translateZ(-90px) rotateY(var(--turn));
+  }
+  [data-sunrise-state='awake'] .object {
+    animation: founder-turn 3.6s backwards;
+  }
+  .image {
+    isolation: isolate;
+    container-type: size;
+  }
+  /* The beam is a gradient redrawn inside the photograph's own box, positioned by three animated values. */
+  [data-sunrise-state] .darkness,
+  [data-sunrise-state] .light {
+    --beam-x: -150cqw;
+    --beam-y: -80cqw;
+    --beam-r: 250cqw;
+    display: block;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  /* Multiplying keeps the photograph's own tones: bright backgrounds sink to a dim glow, figures to near black. The
+     beam is tinted, so the light falls off from gold through sienna into the dark, as a warm lamp's would. */
+  [data-sunrise-state] .darkness {
+    mix-blend-mode: multiply;
+    background: radial-gradient(
+      circle var(--beam-r) at calc(50% + var(--beam-x)) calc(50% + var(--beam-y)),
+      rgba(231, 165, 46, 0.26),
+      rgba(231, 165, 46, 0.36) 8%,
+      rgba(185, 74, 36, 0.74) 16%,
+      var(--espresso) 27%
+    );
+  }
+  [data-sunrise-state] .light {
+    opacity: 0;
+    mix-blend-mode: soft-light;
+    background: radial-gradient(
+      circle var(--beam-r) at calc(50% + var(--beam-x)) calc(50% + var(--beam-y)),
+      rgba(231, 165, 46, 0.9),
+      rgba(185, 74, 36, 0.45) 14%,
+      transparent 26%
+    );
+  }
+  /* Hidden by default once started: only the animation keeps them visible, so nothing is left over the final photograph. */
+  [data-sunrise-state='awake'] .darkness,
+  [data-sunrise-state='awake'] .light {
+    visibility: hidden;
+    animation-duration: 3.6s;
+    animation-timing-function: linear;
+    animation-fill-mode: backwards;
+  }
+  [data-sunrise-state='awake'] .darkness {
+    animation-name: light-path, darkness-lift, overlay-on;
+  }
+  [data-sunrise-state='awake'] .light {
+    animation-name: light-path, light-glow, overlay-on;
+  }
+}
+/* Holds turned away for 0.6s in the dark, then one long unbroken turn that settles at 3.5s, without any overshoot. */
+@keyframes founder-turn {
+  0%,
+  17% {
+    transform: translateZ(-90px) rotateY(var(--turn));
+    animation-timing-function: cubic-bezier(0.5, 0.02, 0.12, 1);
+  }
+  97%,
+  100% {
+    transform: translateZ(0) rotateY(0deg);
+  }
+}
+/* Waits in the dark until 1.3s, enters from the upper left, crosses the faces, then opens until nothing is left to light. */
+@keyframes light-path {
+  0%,
+  36% {
+    --beam-x: -150cqw;
+    --beam-y: -80cqw;
+    --beam-r: 250cqw;
+  }
+  48% {
+    --beam-x: -90cqw;
+    --beam-y: -50cqw;
+    --beam-r: 250cqw;
+  }
+  62% {
+    --beam-x: -30cqw;
+    --beam-y: -20cqw;
+    --beam-r: 250cqw;
+  }
+  74% {
+    --beam-x: 0cqw;
+    --beam-y: -10cqw;
+    --beam-r: 325cqw;
+  }
+  90%,
+  100% {
+    --beam-x: 0cqw;
+    --beam-y: 0cqw;
+    --beam-r: 1500cqw;
+  }
+}
+/* Fades over a longer stretch, because the beam's own gold tint has to leave the photograph gently too. */
+@keyframes darkness-lift {
+  0%,
+  78% {
+    opacity: 1;
+  }
+  97%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes light-glow {
+  0%,
+  36% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  86% {
+    opacity: 0.3;
+  }
+  97%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes overlay-on {
+  from,
+  to {
+    visibility: visible;
+  }
+}
+.caption {
+  display: grid;
+  gap: 2px;
+}
+.name {
+  color: var(--blood);
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.role {
+  line-height: 1.4;
+}
+@media (max-width: 479px) {
+  .name,
+  .role {
+    letter-spacing: 0.18em;
+  }
+}

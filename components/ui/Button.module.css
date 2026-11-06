@@ -1,0 +1,100 @@
+.button {
+  --bg: var(--blood);
+  --fg: var(--cream);
+  --bd: var(--blood);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  min-height: 52px;
+  padding: 0.85em 1.6em;
+  border: 1.5px solid var(--bd);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  text-decoration: none;
+  text-align: center;
+  transition:
+    background-color 0.3s var(--ease-out),
+    color 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out),
+    transform 0.3s var(--ease-out);
+}
+.button:hover {
+  --bg: var(--espresso);
+  --bd: var(--espresso);
+}
+.button:active {
+  transform: translateY(1px) scale(0.985);
+}
+.arrow {
+  width: 1.1em;
+  height: 1.1em;
+  transition: transform 0.35s var(--ease-out);
+}
+.button:hover .arrow {
+  transform: translateX(4px);
+}
+
+.secondary {
+  --bg: transparent;
+  --fg: var(--espresso);
+  --bd: var(--line-strong);
+}
+.secondary:hover {
+  --bg: var(--espresso);
+  --fg: var(--cream);
+  --bd: var(--espresso);
+}
+
+.light {
+  --bg: var(--cream);
+  --fg: var(--espresso);
+  --bd: var(--cream);
+}
+.light:hover {
+  --bg: var(--gold);
+  --fg: var(--espresso);
+  --bd: var(--gold);
+}
+.ghostLight {
+  --bg: transparent;
+  --fg: var(--cream);
+  --bd: var(--line-on-dark);
+}
+.ghostLight:hover {
+  --bg: var(--cream);
+  --fg: var(--espresso);
+  --bd: var(--cream);
+}
+
+.small {
+  min-height: 44px;
+  padding: 0.6em 1.2em;
+  font-size: 0.88rem;
+}
+
+/* Inline text link with animated underline */
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  min-height: 44px;
+  color: var(--blood);
+  font-weight: 600;
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 calc(100% - 10px) / 0 1.5px no-repeat;
+  transition: background-size 0.4s var(--ease-out);
+}
+.textLink:hover {
+  background-size: 100% 1.5px;
+}
+.textLink:hover .arrow {
+  transform: translateX(4px);
+}

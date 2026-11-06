@@ -1,0 +1,98 @@
+.section {
+  --pad: clamp(56px, 12vw, 96px);
+  display: flex;
+  align-items: center;
+  padding-block: var(--pad);
+}
+.grid {
+  display: grid;
+  gap: clamp(28px, 6vw, 44px);
+}
+.title {
+  margin-top: 12px;
+  font-size: clamp(3.6rem, 1.4rem + 11vw, 7rem);
+  white-space: nowrap;
+}
+/* Two identical frames, side by side at every width. */
+.frames {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 24px);
+}
+.story {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  max-width: 38em;
+}
+.storyTitle {
+  font-size: var(--step-3);
+  line-height: 1;
+}
+.paragraph {
+  color: var(--ink-muted);
+  font-size: var(--step-1);
+  line-height: 1.6;
+}
+.statement {
+  color: var(--blood);
+  font-family: var(--font-serif);
+  font-size: var(--step-2);
+  font-style: italic;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+.cta {
+  margin-top: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Desktop: everything shares one screen, so the type and frames scale with the viewport height as well as its width. */
+@media (min-width: 1024px) {
+  .section {
+    --pad: clamp(24px, 4.5svh, 48px);
+    /* Room left for a frame once the header, padding and two-line caption are accounted for. */
+    --frame-h: calc(100svh - var(--header-h) - var(--pad) * 2 - 52px);
+    min-height: min(calc(100svh - var(--header-h)), 960px);
+  }
+  .grid {
+    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    column-gap: clamp(40px, 4.5vw, 72px);
+    row-gap: clamp(16px, 3svh, 32px);
+    align-items: start;
+  }
+  .headline {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .story {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+    gap: clamp(8px, 1.4svh, 14px);
+  }
+  .frames {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    /* A frame is 352:550, so capping its width by that ratio stops it overflowing a short screen. */
+    grid-template-columns: repeat(2, minmax(0, calc(var(--frame-h) * 352 / 550)));
+    justify-content: end;
+    align-self: start;
+  }
+  .title {
+    margin-top: 8px;
+    font-size: clamp(3.6rem, min(7.2vw, 14.5svh), 6.6rem);
+  }
+  .storyTitle {
+    font-size: clamp(1.6rem, min(3vw, 5.2svh), 2.8rem);
+  }
+  .paragraph {
+    font-size: clamp(0.95rem, 2.05svh, 1.15rem);
+    line-height: 1.55;
+  }
+  .statement {
+    font-size: clamp(1.05rem, 2.7svh, 1.5rem);
+  }
+}

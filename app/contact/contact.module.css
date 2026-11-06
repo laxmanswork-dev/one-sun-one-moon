@@ -1,0 +1,93 @@
+.grid {
+  display: grid;
+  gap: clamp(40px, 6vw, 80px);
+}
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(260px, 0.8fr) 1.6fr;
+    align-items: start;
+  }
+}
+.aside {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+}
+.h2 {
+  font-family: var(--font-serif);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.h2:not(:first-child) {
+  margin-top: 28px;
+}
+.steps {
+  display: grid;
+  gap: 16px;
+  padding: 0;
+  list-style: none;
+  counter-reset: s;
+}
+.steps li {
+  position: relative;
+  padding-left: 48px;
+  counter-increment: s;
+}
+.steps li::before {
+  content: counter(s, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 62;
+  font-weight: 900;
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: var(--sienna);
+}
+.channels {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+}
+.channels li {
+  display: grid;
+}
+.channels span {
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+}
+.channels a {
+  color: var(--blood);
+  font-weight: 600;
+  word-break: break-word;
+}
+.formCard {
+  padding: clamp(20px, 4vw, 48px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(250, 245, 236, 0.75);
+  box-shadow: 0 30px 70px -40px rgba(38, 23, 20, 0.4);
+}
+.formTitle {
+  margin-bottom: 20px;
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 62;
+  font-weight: 900;
+  font-size: var(--step-4);
+  text-transform: uppercase;
+}
+.notice {
+  margin-bottom: 24px;
+  padding: 14px 16px;
+  border-left: 4px solid var(--gold);
+  background: var(--sand);
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+.notice a {
+  color: var(--blood);
+}

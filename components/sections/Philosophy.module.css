@@ -1,0 +1,141 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(60% 50% at 50% 110%, rgba(185, 74, 36, 0.55), transparent 70%),
+    radial-gradient(40% 30% at 15% 10%, rgba(244, 235, 221, 0.08), transparent 70%),
+    linear-gradient(180deg, #1c100d 0%, var(--espresso) 55%, #3b1a12 100%);
+  color: var(--cream);
+}
+.gold {
+  color: var(--gold);
+}
+
+.sky {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.orbSun,
+.orbMoon {
+  position: absolute;
+  border-radius: 50%;
+}
+.orbSun {
+  width: clamp(240px, 36vw, 520px);
+  aspect-ratio: 1;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 55%);
+  background: radial-gradient(
+    circle at 50% 40%,
+    #fff1c9 0%,
+    #f6c25a 30%,
+    rgba(231, 165, 46, 0.85) 52%,
+    rgba(231, 165, 46, 0) 71%
+  );
+  opacity: 0.55;
+}
+.orbMoon {
+  width: clamp(60px, 7vw, 110px);
+  aspect-ratio: 1;
+  right: 12%;
+  top: 12%;
+  box-shadow: inset clamp(-14px, -1.6vw, -10px) clamp(-6px, -0.6vw, -4px) 0 0 var(--cream);
+  transform: rotate(-20deg);
+  opacity: 0.8;
+  filter: drop-shadow(0 0 18px rgba(244, 235, 221, 0.25));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .orbSun {
+    animation: breathe 9s var(--ease-in-out) infinite alternate;
+  }
+  .orbMoon {
+    animation: float 12s var(--ease-in-out) infinite alternate;
+  }
+}
+@keyframes breathe {
+  to {
+    transform: translate(-50%, 50%) scale(1.04);
+    opacity: 0.68;
+  }
+}
+@keyframes float {
+  to {
+    transform: rotate(-12deg) translateY(14px);
+  }
+}
+
+.pair {
+  display: grid;
+  gap: clamp(32px, 5vw, 56px);
+  max-width: 1080px;
+  margin-inline: auto;
+}
+@media (min-width: 860px) {
+  .pair {
+    grid-template-columns: 1fr auto 1fr;
+  }
+}
+.side {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding: clamp(24px, 3vw, 40px);
+  border: 1px solid var(--line-on-dark);
+  border-radius: var(--radius-lg);
+  background: rgba(38, 23, 20, 0.55);
+  backdrop-filter: blur(6px);
+  color: rgba(244, 235, 221, 0.86);
+}
+.sunGlyph,
+.moonGlyph {
+  width: 44px;
+  height: 44px;
+}
+.sunGlyph {
+  color: var(--gold);
+}
+.moonGlyph {
+  color: var(--cream);
+  transform: rotate(-18deg);
+}
+.sideTitle {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 62;
+  font-weight: 900;
+  font-size: var(--step-4);
+  text-transform: uppercase;
+  color: var(--cream);
+}
+.sideKicker {
+  font-family: var(--font-serif);
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.divider {
+  display: none;
+}
+@media (min-width: 860px) {
+  .divider {
+    display: flex;
+    justify-content: center;
+  }
+  .divider span {
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(231, 165, 46, 0.6), transparent);
+  }
+}
+@media (max-width: 719px) {
+  /* keep the moon clear of the heading on small screens */
+  .orbMoon {
+    top: 20px;
+    right: 20px;
+    width: 44px;
+  }
+}

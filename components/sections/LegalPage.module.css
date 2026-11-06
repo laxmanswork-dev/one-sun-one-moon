@@ -1,0 +1,8 @@
+.review {
+  max-width: 68ch;
+  margin-bottom: 40px;
+  padding: 16px 18px;
+  border-left: 4px solid var(--gold);
+  background: var(--sand);
+  font-size: 0.92rem;
+}

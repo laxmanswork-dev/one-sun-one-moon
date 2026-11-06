@@ -1,0 +1,184 @@
+.form {
+  display: grid;
+  gap: 22px;
+}
+.required {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+.row {
+  display: grid;
+  gap: 22px;
+}
+@media (min-width: 640px) {
+  .row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.field {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.star {
+  color: var(--blood);
+}
+.optional {
+  font-weight: 400;
+  color: var(--ink-muted);
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 16px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--ivory);
+  color: var(--ink);
+  font-size: 1rem; /* ≥16px: no zoom-on-focus on iOS */
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.field select {
+  appearance: none;
+  padding-right: 44px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--espresso) 50%),
+    linear-gradient(135deg, var(--espresso) 50%, transparent 50%);
+  background-position:
+    calc(100% - 22px) 50%,
+    calc(100% - 16px) 50%;
+  background-size:
+    6px 6px,
+    6px 6px;
+  background-repeat: no-repeat;
+}
+.field textarea {
+  min-height: 160px;
+  resize: vertical;
+  line-height: 1.55;
+}
+.field input:hover,
+.field select:hover,
+.field textarea:hover {
+  border-color: var(--espresso);
+}
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: none;
+  border-color: var(--blood);
+  box-shadow: 0 0 0 3px rgba(142, 36, 27, 0.25);
+}
+.field[data-invalid] input,
+.field[data-invalid] select,
+.field[data-invalid] textarea {
+  border-color: var(--blood);
+  background-color: #fbefe8;
+}
+.fieldError {
+  display: flex;
+  gap: 6px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--blood);
+}
+.fieldError::before {
+  content: '!';
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: var(--blood);
+  color: var(--cream);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.count {
+  justify-self: end;
+  font-size: 0.76rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+.trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+}
+.actions button[disabled] {
+  opacity: 0.8;
+  cursor: progress;
+}
+.privacy {
+  flex: 1 1 240px;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+.privacy a {
+  color: var(--blood);
+}
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+.statusRegion:focus {
+  outline: none;
+}
+.error {
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border: 1.5px solid var(--blood);
+  border-left-width: 6px;
+  border-radius: var(--radius);
+  background: #fbefe8;
+  color: var(--blood);
+  font-weight: 500;
+}
+.error a {
+  color: inherit;
+}
+.success {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  padding: clamp(24px, 4vw, 40px);
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--ivory);
+}
+.success:focus {
+  outline: none;
+}
+.successTitle {
+  font-size: var(--step-4);
+  color: var(--blood);
+}

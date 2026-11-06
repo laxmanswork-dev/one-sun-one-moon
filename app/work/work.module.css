@@ -1,0 +1,12 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr));
+  gap: clamp(56px, 6vw, 88px) clamp(24px, 3vw, 48px);
+}
+.next {
+  background: var(--sand);
+}
+.nextTitle {
+  font-size: var(--step-5);
+  margin-bottom: 28px;
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E7A52E"/>
+      <stop offset="1" stop-color="#B94A24"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#261714"/>
+  <!-- sun with rays -->
+  <g transform="translate(39 32)" fill="url(#sun)">
+    <circle r="9"/>
+    <g stroke="#E7A52E" stroke-width="2.4" stroke-linecap="round">
+      <path d="M0-13.5v-4M0 13.5v4M13.5 0h4M-13.5 0h-4M9.6-9.6l2.8-2.8M-9.6 9.6l-2.8 2.8M9.6 9.6l2.8 2.8M-9.6-9.6l-2.8-2.8"/>
+    </g>
+  </g>
+  <!-- crescent moon -->
+  <path d="M22 15a17 17 0 1 0 0 34 13.5 13.5 0 1 1 0-34z" fill="#F4EBDD"/>
+</svg>

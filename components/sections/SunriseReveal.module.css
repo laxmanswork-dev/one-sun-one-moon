@@ -1,0 +1,110 @@
+.sunrise {
+  position: relative;
+  isolation: isolate;
+}
+/* Faded out at the bottom so the light has no hard edge against the next section. */
+.glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  mask-image: linear-gradient(to top, transparent, black 16%);
+}
+.glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+  background: radial-gradient(
+    ellipse 62% 88% at 50% 100%,
+    rgba(231, 165, 46, 0.5),
+    rgba(231, 165, 46, 0.24) 42%,
+    rgba(185, 74, 36, 0.1) 66%,
+    transparent 82%
+  );
+}
+
+/* Content is always visible by default. It is only hidden where motion is welcome and a script can reveal it again. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Covers the moment before hydration, and ends by itself if the script never loads. */
+  @media (scripting: enabled) {
+    .sunrise:not([data-sunrise-state]) [data-sunrise] {
+      animation: sunrise-hold 10s linear;
+    }
+  }
+  .sunrise[data-sunrise-state='ready'] [data-sunrise] {
+    opacity: 0;
+  }
+
+  .sunrise[data-sunrise-state='awake'] .glow {
+    animation: sunrise-light 4.4s ease-in-out;
+  }
+  .sunrise[data-sunrise-state='awake'] .glow::before {
+    animation: sunrise-rise 4.4s var(--ease-out);
+  }
+
+  /* Backwards fill only: once finished, elements return to their own styles, so button states keep working. */
+  .sunrise[data-sunrise-state='awake'] [data-sunrise] {
+    animation: sunrise-up 0.9s var(--ease-out) backwards;
+  }
+  .sunrise[data-sunrise-state='awake'] [data-sunrise='1'] {
+    animation-name: sunrise-fade;
+    animation-delay: 0.15s;
+  }
+  .sunrise[data-sunrise-state='awake'] [data-sunrise='2'] {
+    animation-delay: 0.45s;
+  }
+  .sunrise[data-sunrise-state='awake'] [data-sunrise='3'] {
+    animation-name: sunrise-fade;
+    animation-delay: 0s;
+    animation-duration: 0.6s;
+  }
+  .sunrise[data-sunrise-state='awake'] [data-sunrise='4'] {
+    animation-name: sunrise-fade;
+    animation-delay: 2.7s;
+  }
+  .sunrise[data-sunrise-state='awake'] [data-sunrise='5'] {
+    animation-delay: 1.6s;
+  }
+  .sunrise[data-sunrise-state='awake'] [data-sunrise='6'] {
+    animation-delay: 2s;
+  }
+}
+
+@keyframes sunrise-hold {
+  from,
+  to {
+    opacity: 0;
+  }
+}
+@keyframes sunrise-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes sunrise-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+/* The light peaks as the portraits arrive and has gone shortly after the last element settles. */
+@keyframes sunrise-light {
+  0% {
+    opacity: 0;
+  }
+  32%,
+  58% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes sunrise-rise {
+  from {
+    transform: translateY(22%) scale(0.72);
+  }
+}

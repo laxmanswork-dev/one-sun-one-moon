@@ -1,0 +1,32 @@
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - var(--header-h));
+  overflow: hidden;
+}
+.content {
+  padding-block: clamp(56px, 10vw, 128px) 24px;
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+}
+.title {
+  font-size: var(--step-hero);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+.scene {
+  position: relative;
+  flex: 1 0 auto;
+  min-height: 220px;
+  pointer-events: none;
+}
+.scene > svg {
+  position: absolute;
+  inset: 0;
+}

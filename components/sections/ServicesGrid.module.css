@@ -1,0 +1,108 @@
+.section {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(235, 220, 197, 0.55) 30%,
+    rgba(235, 220, 197, 0.55) 70%,
+    transparent
+  );
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 1px;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--line);
+  overflow: hidden;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(24px, 3vw, 40px);
+  background: var(--ivory);
+  transition: background-color 0.4s var(--ease-out);
+}
+.card::before {
+  /* sun-rise wash on hover */
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 100%;
+  background: radial-gradient(80% 60% at 50% 120%, rgba(231, 165, 46, 0.28), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+  pointer-events: none;
+}
+.card:hover::before,
+.card:focus-within::before {
+  opacity: 1;
+}
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.number {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--sienna);
+}
+.glyph {
+  width: 52px;
+  height: 52px;
+  color: var(--blood);
+  transition: transform 0.6s var(--ease-out);
+}
+.card:hover .glyph {
+  transform: translateY(-4px) rotate(-4deg);
+}
+.title {
+  margin-top: 12px;
+  font-size: var(--step-2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.link {
+  text-decoration: none;
+}
+.link::after {
+  /* the whole card is the link target */
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.link:focus-visible {
+  outline: none;
+}
+.card:has(.link:focus-visible) {
+  outline: 3px solid var(--blood);
+  outline-offset: -3px;
+}
+.summary {
+  color: var(--ink-muted);
+}
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--blood);
+}
+.card:hover .more svg {
+  transform: translateX(4px);
+}
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(32px, 4vw, 48px);
+}

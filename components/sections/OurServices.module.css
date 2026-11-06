@@ -1,0 +1,581 @@
+.section {
+  --antique: color-mix(in srgb, var(--gold) 78%, var(--espresso));
+  --chapter: clamp(64px, 8vw, 120px);
+  --label-gap: clamp(14px, 1.4vw, 20px);
+  --copy-gap: clamp(20px, 2.4vw, 32px);
+  overflow-x: clip;
+}
+.copy {
+  max-width: 34em;
+  font-size: var(--step-1);
+  line-height: 1.55;
+  color: var(--ink-muted);
+}
+.section .label {
+  display: flex;
+  align-items: baseline;
+  gap: 1em;
+  color: var(--blood);
+}
+.numeral {
+  font-size: 1.5em;
+  letter-spacing: 0.05em;
+}
+.line {
+  display: block;
+  overflow: clip;
+  overflow-clip-margin: 0.04em;
+  padding-bottom: 0.05em;
+}
+.lineInner {
+  display: block;
+}
+
+/* ---- Introduction ---- */
+.intro {
+  display: grid;
+  gap: clamp(24px, 3vw, 40px);
+  padding-block: var(--chapter) clamp(24px, 3vw, 48px);
+}
+.introTitle {
+  margin-top: var(--label-gap);
+  font-size: clamp(3.1rem, 1.2rem + 8.4vw, 8.4rem);
+}
+.introCopy {
+  max-width: 34em;
+  font-size: var(--step-1);
+  line-height: 1.55;
+  color: var(--ink-muted);
+}
+.orbit {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  fill: none;
+  stroke: var(--antique);
+  stroke-width: 1.5;
+}
+
+/* Shared artwork fills and line weights */
+.fineLine {
+  stroke-width: 1;
+}
+.goldFill {
+  fill: var(--gold);
+  stroke: none;
+}
+.siennaFill {
+  fill: var(--sienna);
+  stroke: none;
+}
+.bloodFill {
+  fill: var(--blood);
+  stroke: none;
+}
+
+/* ---- I. Branding: large text beside a construction sheet ---- */
+.brand {
+  padding-block: var(--chapter);
+}
+.brandGrid {
+  display: grid;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+}
+.brandText {
+  display: grid;
+}
+.brandTitle,
+.strategyTitle {
+  margin-top: var(--label-gap);
+}
+.brandText .copy,
+.strategyText .copy {
+  margin-top: var(--copy-gap);
+}
+.brandTitle {
+  color: var(--blood);
+  font-size: clamp(4.2rem, 2rem + 11vw, 10.5rem);
+}
+.sheet {
+  width: min(100%, 560px);
+  height: auto;
+  justify-self: center;
+  fill: none;
+  stroke: var(--antique);
+  stroke-width: 1.5;
+}
+.sheetText {
+  fill: var(--ink-muted);
+  stroke: none;
+  font-family: var(--font-serif);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.mark {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* ---- II. Content: a headline over a full-width film strip (FilmStrip) ---- */
+.film {
+  padding-block: var(--chapter);
+}
+.filmHead {
+  display: grid;
+  gap: clamp(20px, 3vw, 32px);
+  align-items: end;
+}
+.filmTitle {
+  margin-top: var(--label-gap);
+  color: var(--blood);
+  font-size: clamp(3.2rem, 1.4rem + 7.4vw, 7.6rem);
+}
+/* ---- III. Marketing: type alone ---- */
+.momentum {
+  padding-block: var(--chapter);
+}
+.momentumHead {
+  container-type: inline-size;
+}
+/*
+ * Both lines run the full measure at every width: 6.59em is their width from ink to ink. The first line's tracking brings
+ * it out to match the second, and the small negative margins set the T and the I flush with the margin.
+ */
+.momentumTitle {
+  margin-top: var(--label-gap);
+  color: var(--blood);
+  font-size: calc(100cqw / 6.59);
+  margin-left: -0.011em;
+  white-space: nowrap;
+}
+.momentumTitle .line {
+  letter-spacing: 0.024em;
+}
+.momentumLine {
+  position: relative;
+  display: block;
+  margin-left: -0.028em;
+  padding-bottom: 0.05em;
+  letter-spacing: -0.005em;
+}
+.titleWipe {
+  display: block;
+}
+/* The outline shares the solid line's exact box, and at rest it is not seen at all. */
+.titleOutline {
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--sienna);
+  opacity: 0;
+  pointer-events: none;
+}
+/* A fine gold rule, as in a title-card wipe, leading the outline across the line. */
+.titleScan {
+  position: absolute;
+  inset: 0 auto 0.05em 0;
+  width: 100%;
+  border-left: 1.5px solid var(--gold);
+  opacity: 0;
+  pointer-events: none;
+}
+.momentumFoot {
+  display: grid;
+  gap: clamp(24px, 3vw, 40px);
+  align-items: center;
+  margin-top: clamp(32px, 4vw, 56px);
+}
+.trajectory {
+  width: 100%;
+  height: auto;
+  fill: none;
+  stroke: var(--antique);
+  stroke-width: 1.25;
+}
+.trajectoryFrame {
+  stroke: var(--gold);
+}
+.chevron > * {
+  stroke-linecap: square;
+}
+.sunGlow {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.sunRays {
+  stroke: var(--gold);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+/* The artwork draws smaller on a phone, so its lines are set to keep the same rendered weight. */
+@media (max-width: 719px) {
+  .trajectory {
+    stroke-width: 2.2;
+  }
+}
+
+/* ---- IV. Advertising: a poster beside a short column ---- */
+.campaign {
+  padding-block: var(--chapter);
+  background: var(--sand);
+}
+.campaignGrid {
+  display: grid;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+}
+.campaignText {
+  display: grid;
+  gap: var(--label-gap);
+}
+.momentumHead .label,
+.campaignText .label {
+  font-size: clamp(0.8125rem, 0.75rem + 0.28vw, 0.9375rem);
+}
+.momentumFoot .copy,
+.campaignText .copy {
+  font-size: clamp(1.125rem, 1rem + 0.56vw, 1.25rem);
+  line-height: 1.5;
+  text-wrap: balance;
+}
+@media (min-width: 720px) {
+  .momentumFoot .copy,
+  .campaignText .copy {
+    font-size: clamp(1.3125rem, 1.016rem + 0.66vw, 1.4375rem);
+  }
+}
+@media (min-width: 1024px) {
+  .momentumHead .label,
+  .campaignText .label {
+    font-size: clamp(1rem, 0.692rem + 0.48vw, 1.125rem);
+  }
+  .momentumFoot .copy,
+  .campaignText .copy {
+    font-size: clamp(1.5625rem, 1.255rem + 0.48vw, 1.6875rem);
+  }
+}
+.poster {
+  container-type: inline-size;
+  position: relative;
+  width: min(100%, 640px);
+  justify-self: center;
+  aspect-ratio: 4 / 5;
+  background: var(--blood);
+  color: var(--cream);
+}
+.posterFrame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 0.7;
+}
+.posterTitle {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 2cqw;
+  line-height: 0.9;
+}
+.posterSmall {
+  font-size: 9.5cqw;
+  letter-spacing: 0.12em;
+}
+.posterLook {
+  display: flex;
+  align-items: center;
+  font-size: 34cqw;
+}
+.posterO {
+  display: block;
+  width: 0.78em;
+  height: 0.78em;
+  margin-inline: 0.02em;
+  translate: 0 -0.0115em; /* centres the O's on the capitals of L and K */
+  transition: transform 0.9s var(--ease-out);
+}
+.goldRay {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+.posterTwice {
+  color: var(--gold);
+  font-size: 29cqw;
+  letter-spacing: 0.02em;
+}
+.drop {
+  display: block;
+}
+
+/* ---- V. Strategy: arches and a measured column ---- */
+.strategy {
+  padding-block: var(--chapter);
+}
+.strategyGrid {
+  display: grid;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+.arch {
+  justify-self: center;
+  width: min(100%, 460px);
+  height: auto;
+  overflow: visible;
+  fill: none;
+  stroke: var(--antique);
+  stroke-width: 1.5;
+  transition: stroke 0.5s var(--ease-out);
+}
+.axis {
+  stroke: var(--sienna);
+}
+/* The arch renders smaller than its canvas, so its lines are set to match the sheet's rendered weight. */
+.arch {
+  stroke-width: 1.9;
+}
+.arch .fineLine {
+  stroke-width: 1.25;
+}
+.accent {
+  fill: none;
+  stroke: var(--sienna);
+  stroke-width: 1;
+}
+.strategyText {
+  display: grid;
+}
+.strategyTitle {
+  color: var(--blood);
+  font-size: clamp(3.4rem, 1.2rem + 7.6vw, 8rem);
+}
+
+@media (min-width: 960px) {
+  .introCopy {
+    justify-self: end;
+  }
+  .brandGrid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+  .sheet {
+    justify-self: end;
+  }
+  .arch {
+    justify-self: start;
+  }
+  .filmHead {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 24em);
+  }
+  .campaignGrid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+  .campaignText {
+    order: 1;
+  }
+  .poster {
+    justify-self: start;
+  }
+  .strategyGrid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+  .momentumFoot {
+    grid-template-columns: minmax(0, 13fr) minmax(0, 11fr);
+  }
+}
+
+/* ---- Interaction: small, deliberate responses ---- */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .sheet:hover .mark {
+    transform: rotate(-12deg);
+  }
+  .mark {
+    transition: transform 0.9s var(--ease-out);
+  }
+  .poster:hover .posterMoon {
+    transform: rotate(-18deg);
+  }
+  .arch:hover {
+    stroke: var(--sienna);
+  }
+}
+
+/*
+ * Reveals. Everything is visible by default. Where motion is welcome, each element is held hidden until its chapter
+ * scrolls into view, then plays once with backwards fill, returning afterwards to its own natural styles.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  /* Covers the moment before hydration, and ends by itself if the script never loads. */
+  @media (scripting: enabled) {
+    [data-inview-root]:not([data-inview]) .rise,
+    [data-inview-root]:not([data-inview]) .lineInner,
+    [data-inview-root]:not([data-inview]) .drop,
+    [data-inview-root]:not([data-inview]) .draw,
+    [data-inview-root]:not([data-inview]) .titleWipe,
+    [data-inview-root]:not([data-inview]) .sunLight,
+    [data-inview-root]:not([data-inview]) .sunRays {
+      animation: services-hold 10s linear;
+    }
+  }
+  [data-inview='ready'] .rise,
+  [data-inview='ready'] .drop {
+    opacity: 0;
+  }
+  [data-inview='ready'] .lineInner {
+    transform: translateY(110%);
+  }
+  [data-inview='ready'] .draw > * {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  [data-inview='ready'] .chevron > *,
+  [data-inview='ready'] .sunLight,
+  [data-inview='ready'] .sunRays {
+    opacity: 0;
+  }
+  [data-inview='ready'] .titleWipe {
+    clip-path: inset(-0.1em 100% -0.1em 0);
+  }
+  [data-inview='in'] .rise {
+    animation: services-rise 0.9s var(--ease-out) var(--d, 0s) backwards;
+  }
+  [data-inview='in'] .lineInner {
+    animation: services-mask 1s var(--ease-out) var(--d, 0s) backwards;
+  }
+  [data-inview='in'] .draw > * {
+    stroke-dasharray: 1;
+    animation: services-draw var(--dur, 1.3s) var(--ease-in-out) var(--d, 0s) backwards;
+  }
+  [data-inview='in'] .drop {
+    animation: services-drop 1s var(--ease-out) var(--d, 0s) backwards;
+  }
+  /* The headline's second line: rule, then outline, then solid, then the outline leaves. */
+  [data-inview='in'] .titleScan {
+    animation: services-scan 1.1s var(--ease-in-out) var(--d, 0s) backwards;
+  }
+  [data-inview='in'] .titleOutline {
+    animation:
+      services-wipe 1.1s var(--ease-in-out) var(--d, 0s) backwards,
+      services-leave 0.8s linear calc(var(--d, 0s) + 1.2s) backwards;
+  }
+  [data-inview='in'] .titleWipe {
+    animation: services-wipe 1.1s var(--ease-in-out) var(--d, 0s) backwards;
+  }
+  /* The journey runs at a constant rate through each stage. */
+  [data-inview='in'] .draw.chevron > * {
+    animation-name: services-arm;
+    animation-timing-function: linear;
+  }
+  [data-inview='in'] .sunLight {
+    animation: services-illuminate 1.5s ease-out var(--d, 0s) backwards;
+  }
+  [data-inview='in'] .sunRays {
+    animation: services-rays 1.3s var(--ease-out) var(--d, 0s) backwards;
+  }
+  /* A few slow breaths after the arrival, then the sun holds still. */
+  [data-inview='in'] .sunGlow {
+    animation: services-pulse 4.2s ease-in-out var(--d, 0s) 3;
+  }
+}
+@keyframes services-hold {
+  from,
+  to {
+    opacity: 0;
+  }
+}
+@keyframes services-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes services-mask {
+  from {
+    transform: translateY(110%);
+  }
+}
+@keyframes services-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes services-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-30%);
+  }
+}
+@keyframes services-arm {
+  from {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+  1% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes services-wipe {
+  from {
+    clip-path: inset(-0.1em 100% -0.1em 0);
+  }
+  to {
+    clip-path: inset(-0.1em 0 -0.1em 0);
+  }
+}
+@keyframes services-leave {
+  from {
+    opacity: 0.85;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes services-scan {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  88% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+@keyframes services-illuminate {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes services-rays {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+}
+@keyframes services-pulse {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.2;
+    transform: scale(1.65);
+  }
+}

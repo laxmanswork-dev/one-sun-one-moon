@@ -1,0 +1,24 @@
+node_modules/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+.vercel
+
+# Secrets — only .env.example is committed
+.env
+.env.*
+!.env.example
+
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Build output / tooling
+dist/
+build/
+.wrangler/
+*.log
+.vscode/
+.idea/

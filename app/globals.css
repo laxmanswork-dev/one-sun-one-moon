@@ -1,0 +1,271 @@
+/* ==========================================================================
+   ONE SUN ONE MOON — design tokens & base styles
+   Palette from the approved brand board (Brand Identity 2026).
+   ========================================================================== */
+
+:root {
+  /* Brand palette — exact values from the brand board */
+  --cream: #f4ebdd; /* Desert Cream */
+  --gold: #e7a52e; /* Sun Gold */
+  --sienna: #b94a24; /* Burnt Sienna */
+  --blood: #8e241b; /* Blood Orange */
+  --espresso: #261714; /* Espresso */
+
+  /* Supporting neutrals derived from the palette */
+  --ivory: #faf5ec;
+  --sand: #ebdcc5;
+  --dune: #d9bf9a;
+  --ink: var(--espresso);
+  --ink-muted: #5c4a43; /* 7.4:1 on cream */
+  --line: rgba(38, 23, 20, 0.16);
+  --line-strong: rgba(38, 23, 20, 0.32);
+  --line-on-dark: rgba(244, 235, 221, 0.18);
+
+  /* The logo's fire gradient */
+  --fire: radial-gradient(120% 140% at 50% 30%, #f3b64a 0%, #e48f2c 28%, #c85a26 55%, #8e241b 82%, #5c1712 100%);
+  --fire-flat: linear-gradient(180deg, #eaa632 0%, #d4702a 45%, #a8391f 75%, #7a1e16 100%);
+
+  /* Typography */
+  --font-display: var(--font-archivo), 'Arial Narrow', sans-serif;
+  --font-sans: var(--font-sora), system-ui, sans-serif;
+  --font-serif: var(--font-baskerville), Georgia, serif;
+
+  --step--1: clamp(0.82rem, 0.8rem + 0.1vw, 0.88rem);
+  --step-0: clamp(1rem, 0.96rem + 0.18vw, 1.08rem);
+  --step-1: clamp(1.15rem, 1.08rem + 0.35vw, 1.35rem);
+  --step-2: clamp(1.4rem, 1.25rem + 0.7vw, 1.85rem);
+  --step-3: clamp(1.8rem, 1.5rem + 1.5vw, 2.8rem);
+  --step-4: clamp(2.4rem, 1.8rem + 3vw, 4.4rem);
+  --step-5: clamp(3rem, 2rem + 5.5vw, 7rem);
+  --step-hero: clamp(3.4rem, 1.6rem + 9vw, 10.5rem);
+
+  /* Spacing & layout */
+  --gutter: clamp(16px, 4vw, 48px);
+  --container: 1320px;
+  --section: clamp(72px, 10vw, 144px);
+  --radius: 6px;
+  --radius-lg: 14px;
+  --header-h: 76px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  color-scheme: light;
+}
+
+/* ---- Reset ------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+body {
+  min-height: 100svh;
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(120% 80% at 50% -10%, rgba(231, 165, 46, 0.1), transparent 60%),
+    radial-gradient(90% 60% at 100% 100%, rgba(185, 74, 36, 0.06), transparent 60%);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+/* Film grain — the brand board's vintage cinematic texture. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.085;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.15 0 0 0 0 0.09 0 0 0 0 0.08 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+img {
+  height: auto;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+}
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.05;
+  text-wrap: balance;
+  font-weight: 800;
+}
+p {
+  text-wrap: pretty;
+}
+::selection {
+  background: var(--gold);
+  color: var(--espresso);
+}
+
+/* ---- Focus -------------------------------------------------------------- */
+:focus-visible {
+  outline: 3px solid var(--blood);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.on-dark :focus-visible,
+.on-dark:focus-visible {
+  outline-color: var(--gold);
+}
+
+/* ---- Utilities ----------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.section {
+  padding-block: var(--section);
+}
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 200;
+  padding: 12px 18px;
+  background: var(--espresso);
+  color: var(--cream);
+  font-weight: 600;
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+/* Display type: the brand board's condensed, all-caps headline face. */
+.display {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 62;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  line-height: 0.88;
+}
+.fire-text {
+  background: var(--fire-flat);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--blood); /* fallback */
+  -webkit-text-fill-color: transparent;
+}
+/* Small tracked serif caps: the board's section labels. */
+.eyebrow {
+  font-family: var(--font-serif);
+  font-size: 0.74rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  line-height: 1.8;
+  color: var(--ink-muted);
+}
+.lede {
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--ink-muted);
+  max-width: 38em;
+}
+.prose {
+  max-width: 68ch;
+}
+.prose > * + * {
+  margin-top: 1em;
+}
+.prose h2 {
+  font-size: var(--step-2);
+  margin-top: 2em;
+}
+.prose h3 {
+  font-size: var(--step-1);
+  margin-top: 1.6em;
+}
+.prose ul {
+  padding-left: 1.2em;
+}
+.prose li + li {
+  margin-top: 0.4em;
+}
+.prose a {
+  color: var(--blood);
+}
+
+/* Scroll reveal — pure CSS, progressive enhancement. Content is fully visible
+   where scroll-driven animations are unsupported or motion is reduced. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+  }
+}
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Lock page scroll while a modal (menu, game) is open. */
+html.is-locked,
+html.is-locked body {
+  overflow: hidden;
+}

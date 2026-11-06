@@ -1,0 +1,150 @@
+.jump ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: clamp(28px, 4vw, 44px);
+  padding: 0;
+  list-style: none;
+}
+.jump a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 6px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+.jump a:hover {
+  background: var(--espresso);
+  color: var(--cream);
+}
+.jump span {
+  font-family: var(--font-serif);
+  color: var(--sienna);
+}
+.jump a:hover span {
+  color: var(--gold);
+}
+
+.service {
+  display: grid;
+  gap: 20px 48px;
+  padding-block: clamp(56px, 8vw, 112px);
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 24px;
+}
+@media (min-width: 900px) {
+  .service {
+    grid-template-columns: 180px 1fr;
+  }
+}
+.aside {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+@media (min-width: 900px) {
+  .aside {
+    flex-direction: column;
+    align-items: flex-start;
+    position: sticky;
+    top: 32px;
+    align-self: start;
+  }
+}
+.number {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--sienna);
+}
+.glyph {
+  width: 72px;
+  height: 72px;
+  color: var(--blood);
+}
+.main {
+  display: grid;
+  gap: 18px;
+  justify-items: start;
+  max-width: 900px;
+}
+.title {
+  font-size: var(--step-5);
+}
+.summary {
+  font-size: var(--step-2);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  max-width: 30em;
+}
+.value {
+  max-width: 44em;
+  color: var(--ink-muted);
+}
+.cols {
+  display: grid;
+  gap: 28px 56px;
+  width: 100%;
+  margin-block: 12px;
+}
+@media (min-width: 640px) {
+  .cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.subhead {
+  margin-bottom: 12px;
+  font-family: var(--font-serif);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.includes,
+.related {
+  display: grid;
+  gap: 0;
+  padding: 0;
+  list-style: none;
+}
+.includes li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-block: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.includes li::before {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.related a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  color: var(--blood);
+  font-weight: 600;
+}
+
+.close {
+  background: var(--sand);
+}
+.closeTitle {
+  font-size: var(--step-5);
+  margin-bottom: 20px;
+}
+.closeButton {
+  margin-top: 28px;
+}
