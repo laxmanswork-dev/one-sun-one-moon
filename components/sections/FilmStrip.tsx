@@ -87,7 +87,7 @@ const STAGES = [
   {
     label: 'Shoot',
     tagline: 'Bringing it to life',
-    photo: '/images/services/03 · Shoot (2).png',
+    photo: '/images/services/03 · Shoot (3).png',
     alt: 'A film crew in silhouette, shooting in the hills at sunset',
     moving: true,
     Layer: ShootLayer,
