@@ -22,3 +22,8 @@ build/
 *.log
 .vscode/
 .idea/
+
+# Cloudflare / OpenNext
+.open-next/
+.dev.vars
+.dev.vars.*

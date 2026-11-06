@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Cloudflare Worker that serves the Next.js app via the OpenNext adapter.
+  // Build: `npx opennextjs-cloudflare build` · Deploy: `npx opennextjs-cloudflare deploy`
+  "name": "one-sun-one-moon",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "one-sun-one-moon",
+    },
+  ],
+  // Powers next/image resizing and AVIF/WebP conversion.
+  "images": {
+    "binding": "IMAGES",
+  },
+  "observability": {
+    "enabled": true,
+  },
+}
